@@ -1,0 +1,40 @@
+{% include "includes/header.html" %}
+{% load static %}
+
+<div class="container my-5">
+    <h2 class="mb-4 text-center">Algorithme de Régression Logistique</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Détails :</h3>
+            <p>
+                La régression linéaire est un modèle de régression supervisée 
+                qui utilise une relation linéaire pour modéliser 
+                la relation entre une variable dépendante et une ou plusieurs variables explicatives.
+            </p>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Caractéristiques :</h3>
+            <ul>
+                <li>Prédiction continue</li>
+                <li>Relation linéaire entre variables</li>
+                <li>Interprétation simple des coefficients</li>
+                 <li> Calcul rapide et efficace</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <iframe 
+            src="{% static 'pdfs/regression_lineaire.pdf' %}" 
+            width="100%" 
+            height="600px" 
+            style="border:1px solid #ccc;">
+            Ce navigateur ne supporte pas les PDFs. 
+            <a href="{% static 'pdfs/chapitre5.pdf' %}">Télécharger le PDF</a>
+        </iframe>
+    </div>
+</div>
+
+{% include "includes/footer.html" %}

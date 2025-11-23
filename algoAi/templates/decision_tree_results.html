@@ -1,0 +1,59 @@
+{% include "includes/header.html" %}
+{% load static %}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Résultat de la Prédiction</h2>
+    
+    {% if error_message %}
+        <div class="alert alert-danger">
+            <h4>Erreur</h4>
+            <p>{{ error_message }}</p>
+            <a href="{% url 'decision_tree_prediction' %}" class="btn btn-secondary">Retour au formulaire</a>
+        </div>
+    {% else %}
+        <div class="card">
+            <div class="card-header {% if recommendation == 'Recommandé' %}bg-success{% else %}bg-warning{% endif %} text-white">
+                <h4 class="mb-0">
+                    {% if recommendation == 'Recommandé' %}
+                         {{ recommendation }}
+                    {% else %}
+                         {{ recommendation }}
+                    {% endif %}
+                </h4>
+            </div>
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Détails de la prédiction:</h5>
+                        <div class="alert {% if recommendation == 'Recommandé' %}alert-success{% else %}alert-warning{% endif %}">
+                            <strong>Recommandation:</strong> {{ recommendation }}<br>
+                            <strong>Confiance:</strong> {{ confidence }}<br>
+                            <strong>Probabilité "Recommandé":</strong> {{ probability_recommended }}<br>
+                            <strong>Probabilité "Non Recommandé":</strong> {{ probability_not_recommended }}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h5>Caractéristiques saisies:</h5>
+                        <ul class="list-group">
+                            <li class="list-group-item"><strong>Latitude:</strong> {{ input_data.lat }}</li>
+                            <li class="list-group-item"><strong>Longitude:</strong> {{ input_data.lng }}</li>
+                            <li class="list-group-item"><strong>Indice d'attraction:</strong> {{ input_data.attr_index }}</li>
+                            <li class="list-group-item"><strong>Satisfaction:</strong> {{ input_data.guest_satisfaction }}</li>
+                            <li class="list-group-item"><strong>Distance centre:</strong> {{ input_data.center_dist }} km</li>
+                            <li class="list-group-item"><strong>Distance métro:</strong> {{ input_data.metro_dist }} km</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="{% url 'decision_tree_prediction' %}" class="btn btn-primary">Nouvelle prédiction</a>
+                    <a href="{% url 'decision_tree_atelier' %}" class="btn btn-secondary">Retour à l'atelier</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% include "includes/footer.html" %}

@@ -1,0 +1,89 @@
+{% include "includes/header.html" %}
+{% load static %}
+<div class="container">
+    <h2 class="mb-4">Tester le modèle de prédiction du cours de l'or</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Saisir les données des marchés</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'reglog_tester' %}">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Marché Nasdaq :</h6>
+                                <div class="form-group">
+                                    <label>Prix d'ouverture Nasdaq :</label>
+                                    <input type="number" step="0.01" class="form-control" name="nasdaq_open" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Écart haut-bas Nasdaq :</label>
+                                    <input type="number" step="0.01" class="form-control" name="nasdaq_high_low" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prix de clôture Nasdaq :</label>
+                                    <input type="number" step="0.01" class="form-control" name="nasdaq_close" required>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h6>Marché Pétrole :</h6>
+                                <div class="form-group">
+                                    <label>Prix d'ouverture Pétrole :</label>
+                                    <input type="number" step="0.01" class="form-control" name="oil_open" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Écart haut-bas Pétrole :</label>
+                                    <input type="number" step="0.01" class="form-control" name="oil_high_low" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Prix de clôture Pétrole :</label>
+                                    <input type="number" step="0.01" class="form-control" name="oil_close" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h6>Marché Or :</h6>
+                                <div class="form-group">
+                                    <label>Prix d'ouverture Or :</label>
+                                    <input type="number" step="0.01" class="form-control" name="gold_open" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Écart haut-bas Or :</label>
+                                    <input type="number" step="0.01" class="form-control" name="gold_high_low" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary mt-3">Prédire le cours de clôture de l'or</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            {% if prediction %}
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5>Résultat de la prédiction</h5>
+                </div>
+                <div class="card-body">
+                    <h4 class="text-center">Prix prédit :</h4>
+                    <h2 class="text-center text-success">{{ prediction }} $</h2>
+                    <p class="text-muted text-center">Prix de clôture prédit pour l'or</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'votre_url_atelier' %}" class="btn btn-secondary">Retour à l'atelier</a>
+    </div>
+</div>
+{% include "includes/footer.html" %}

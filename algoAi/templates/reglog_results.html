@@ -1,26 +1,34 @@
-# 1
-{% include "includes/header.html" %}
 {% load static %}
+{% include "includes/header.html" %}
 
-<div class="container">
+<div class="container mt-4">
     <div class="card mb-3">
         <div class="card-header">
-           <strong>Resultat de classifications/strong>
+           <strong>Résultat de classification</strong>
         </div>
         <div class="card-body">
              <div class="row">
                  <div class="col-md-6">
-                     <h5 class="card-title"> Type de véhicule prédit :
-                         <span class="badge bg-primary"></{type_vehicule}</span>
+                     <h5 class="card-title"> Type prédit :
+                         <span class="badge bg-primary">{{ prediction }}</span>
                      </h5>
-                         <img src="{{% static img_vehicule %}}" class="img thumbnail card-img-top" style="width:350px">
+                     <!-- Supprimer l'image ou utiliser une image générique -->
+                     <img src="{% static 'images/gold_3.png' %}" class="img-thumbnail card-img-top" style="width:350px">
                  </div>
-                    <div class="col-md-6">
-                        <p class="card-text">
-                            Le type du véhicule prédit basé sur les caractéristiques suivantes : </p>
-                {% for key, value in initial_data.items%}
-                     <div><strong>{(key)}:</strong>{(value)}</div>
-                   {% endfor %}
-                   </div>
+                 <div class="col-md-6">
+                     <p class="card-text">
+                         Le prix de l'or prédit basé sur les caractéristiques suivantes : </p>
+                     {% for key, value in initial_data.items %}
+                         <div><strong>{{ key }}:</strong> {{ value }}</div>
+                     {% endfor %}
+                 </div>
              </div>
          </div>
+    </div>
+    
+    <div class="text-center">
+        <a href="{% url 'prediction_or' %}" class="btn btn-primary">Nouvelle Prédiction</a>
+    </div>
+</div>
+
+{% include "includes/footer.html" %}

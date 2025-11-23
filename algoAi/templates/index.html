@@ -1,25 +1,82 @@
 {% load static %}
 {% include "includes/header.html" %}
+
 <div class="container">
     <h2 class="mb-4">Les Algorithmes</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
+    <div class="row">
+        <!-- Carte 1: Régression Logistique -->
+        <div class="col-md-5 mb-4">
             <div class="card h-100">
-                <h5 class="card-header">Algorithme Régression Logistique</h5>
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">Algorithme Régression Logistique</h5>
+                </div>
                 <div class="card-body">
-                    <img src="{% static 'images/regression_logistique.jpg' %}" class="card-img-top">
-                    <div class="card-text mt-3">
-                        <p>
+                    <img src="{% static 'images/regression_logistique.jpg' %}" class="card-img-top mb-3" alt="Régression Logistique">
+                    <div class="card-text">
+                        <p class="mb-0">
                             L'algorithme Régression Logistique est un algorithme d'apprentissage suppervisé de classification
                         </p>
                     </div>
                 </div>
-                <div class="card-footer center">
+                <div class="card-footer bg-white border-top-0">
                     <a class="btn btn-info col-12 mt-2" href="{% url 'reglog_details' %}">Plus détails</a>
                     <a class="btn btn-success col-12 mt-2" href="{% url 'reglog_atelier' %}">Exemple de Classification</a>
                 </div>
             </div>
         </div>
+
+        <!-- Carte 2: Régression Linéaire -->
+        <div class="col-md-5 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">Algorithme Régression Linéaire</h5>
+                </div>
+                <div class="card-body">
+                    <img src="{% static 'images/regression_lineaire.png' %}" class="card-img-top mb-3" alt="Régression Linéaire">
+                    <div class="card-text">
+                        <p class="mb-0">
+                            La régression linéaire est un algorithme de régression supervisée utilisé pour prédire des valeurs numériques continues.
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a class="btn btn-info col-12 mt-2" href="{% url 'linreg_details' %}">Plus détails</a>
+                    <a class="btn btn-success col-12 mt-2" href="{% url 'linreg_atelier' %}">Exemple de Régression</a>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+
+    <!-- Carte 1: Régression Logistique -->
+        <div class="col-5 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-light">
+                    <h5 class="card-title mb-0">Algorithme Arbre de Décision</h5>
+                </div>
+                <div class="card-body">
+                    <img src="{% static 'images/arbre.png' %}" class="card-img-top mb-3" alt="Régression Logistique">
+                    <div class="card-text">
+                        <p class="mb-0">
+                            L'algorithme Arbre de Décision est un algorithme d'apprentissage supervisé utilisé pour la 
+                            classification et la régression avec une visualisation graphique des règles de décision.
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-top-0">
+                    <a class="btn btn-info col-12 mt-2" href="{% url 'decision_tree_details' %}">Plus détails</a>
+                    <a class="btn btn-success col-12 mt-2" href="{% url 'decision_tree_atelier' %}">Exemple de Classification</a>
+                </div>
+            </div>
+        </div>
+</div>   
+<style>
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}
+</style>
+
 {% include "includes/footer.html" %}
