@@ -2,70 +2,69 @@
 {% load static %}
 
 <div class="container">
-    <h2 class="mb-4">Les caractéristiques du véhicule</h2>
+    <h2 class="mb-4">Caractéristiques de l'Or</h2>
     <div class="ps-2 card">
         <div class="card-title">
-            <img src="{% static 'images/gold_3.png' %}" class="image-redimensionnee" style="width: 600px; height: 300px; object-fit: cover;">
+            <img src="{% static 'images/gold_3.png' %}" class="image-redimensionnee" style="width: 1200px; height: 400px; object-fit: cover;">
         </div>
         <div class="card-body">
             <form method="post" action="{% url 'linear_prediction' %}" class="ps-4 pe-4 pt-4 pb-4">
                 {% csrf_token %}
                 
                 <!-- NASDAQ Section -->
-                <h5 class="mt-4 mb-3 text-primary">NASDAQ</h5>
-                
+                <h5 class="mt-4 mb-3 text-primary">NASDAQ</h5> 
                 <div class="mb-4">
-                    <label for="nasdaq_open" class="form-label">Nasdaq Open</label>
-                    <input type="range" class="form-range" min="10000" max="20000" step="100" id="nasdaq_open" name="nasdaq_open" value="15000" oninput="nasdaq_openValue.value=this.value">
-                    <span class="slider-value" id="nasdaq_openValue">15000</span>
+                    <label for="nasdaq_open" class="form-label">Nasdaq Open(Le prix du Nasdaq au moment de l’ouverture de la bourse)</label>
+                    <input type="range" class="form-range" min="10" max="200" step="1" id="nasdaq_open" name="nasdaq_open" value="150" oninput="nasdaq_openValue.value=this.value">
+                    <span class="slider-value" id="nasdaq_openValue">150</span>
                 </div>
 
                 <div class="mb-4">
-                    <label for="nasdaq_high_low" class="form-label">Nasdaq High-Low Spread</label>
-                    <input type="range" class="form-range" min="50" max="500" step="10" id="nasdaq_high_low" name="nasdaq_high_low" value="200" oninput="nasdaq_high_lowValue.value=this.value">
-                    <span class="slider-value" id="nasdaq_high_lowValue">200</span>
+                    <label for="nasdaq_high_low" class="form-label">Nasdaq High-Low Spread(La différence entre le prix le plus haut et le prix le plus bas du Nasdaq pendant la journée)</label>
+                    <input type="range" class="form-range" min="0" max="10" step="0.01" id="nasdaq_high_low" name="nasdaq_high_low" value="0.7" oninput="nasdaq_high_lowValue.value=this.value">
+                    <span class="slider-value" id="nasdaq_high_lowValue">1</span>
                 </div>
 
                 <div class="mb-4">
-                    <label for="nasdaq_close" class="form-label">Nasdaq Close</label>
-                    <input type="range" class="form-range" min="10000" max="20000" step="100" id="nasdaq_close" name="nasdaq_close" value="15200" oninput="nasdaq_closeValue.value=this.value">
-                    <span class="slider-value" id="nasdaq_closeValue">15200</span>
+                    <label for="nasdaq_close" class="form-label">Nasdaq Close(Le prix du Nasdaq à la fermeture de la bourse)</label>
+                    <input type="range" class="form-range" min="10" max="200" step="1" id="nasdaq_close" name="nasdaq_close" value="150" oninput="nasdaq_closeValue.value=this.value">
+                    <span class="slider-value" id="nasdaq_closeValue">150</span>
                 </div>
 
                 <!-- OIL Section -->
                 <h5 class="mt-4 mb-3 text-success">OIL</h5>
                 
                 <div class="mb-4">
-                    <label for="oil_open" class="form-label">Oil Open</label>
-                    <input type="range" class="form-range" min="50" max="150" step="1" id="oil_open" name="oil_open" value="80" oninput="oil_openValue.value=this.value">
-                    <span class="slider-value" id="oil_openValue">80</span>
+                    <label for="oil_open" class="form-label">Oil Open(Le prix du pétrole au début de la journée)</label>
+                    <input type="range" class="form-range" min="10" max="50" step="1" id="oil_open" name="oil_open" value="30" oninput="oil_openValue.value=this.value">
+                    <span class="slider-value" id="oil_openValue">30</span>
                 </div>
 
                 <div class="mb-4">
-                    <label for="oil_high_low" class="form-label">Oil High-Low Spread</label>
-                    <input type="range" class="form-range" min="1" max="20" step="0.5" id="oil_high_low" name="oil_high_low" value="5" oninput="oil_high_lowValue.value=this.value">
-                    <span class="slider-value" id="oil_high_lowValue">5</span>
+                    <label for="oil_high_low" class="form-label">Oil High-Low Spread(La différence entre le prix le plus haut et le prix le plus bas du pétrole dans la journée)</label>
+                    <input type="range" class="form-range" min="0" max="10" step="0.01" id="oil_high_low" name="oil_high_low" value="0.7" oninput="oil_high_lowValue.value=this.value">
+                    <span class="slider-value" id="oil_high_lowValue">0.7</span>
                 </div>
 
                 <div class="mb-4">
-                    <label for="oil_close" class="form-label">Oil Close</label>
-                    <input type="range" class="form-range" min="50" max="150" step="1" id="oil_close" name="oil_close" value="82" oninput="oil_closeValue.value=this.value">
-                    <span class="slider-value" id="oil_closeValue">82</span>
+                    <label for="oil_close" class="form-label">Oil Close(Le prix du pétrole à la fin de la journée)</label>
+                    <input type="range" class="form-range" min="10" max="50" step="1" id="oil_close" name="oil_close" value="30" oninput="oil_closeValue.value=this.value">
+                    <span class="slider-value" id="oil_closeValue">30</span>
                 </div>
 
                 <!-- GOLD Section -->
                 <h5 class="mt-4 mb-3 text-warning">GOLD</h5>
                 
                 <div class="mb-4">
-                    <label for="gold_open" class="form-label">Gold Open</label>
-                    <input type="range" class="form-range" min="1500" max="2500" step="10" id="gold_open" name="gold_open" value="1800" oninput="gold_openValue.value=this.value">
-                    <span class="slider-value" id="gold_openValue">1800</span>
+                    <label for="gold_open" class="form-label">Gold Open(Le prix de l’or au début de la journée)</label>
+                    <input type="range" class="form-range" min="50" max="200" step="1" id="gold_open" name="gold_open" value="111" oninput="gold_openValue.value=this.value">
+                    <span class="slider-value" id="gold_openValue">111</span>
                 </div>
 
                 <div class="mb-4">
-                    <label for="gold_high_low" class="form-label">Gold High-Low Spread</label>
-                    <input type="range" class="form-range" min="10" max="100" step="5" id="gold_high_low" name="gold_high_low" value="40" oninput="gold_high_lowValue.value=this.value">
-                    <span class="slider-value" id="gold_high_lowValue">40</span>
+                    <label for="gold_high_low" class="form-label">Gold High-Low Spread(La différence entre le prix le plus haut et le plus bas de l’or dans la journée)</label>
+                    <input type="range" class="form-range" min="0" max="10" step="0.01" id="gold_high_low" name="gold_high_low" value="1" oninput="gold_high_lowValue.value=this.value">
+                    <span class="slider-value" id="gold_high_lowValue">1</span>
                 </div>
 
 
@@ -111,10 +110,10 @@
 </style>
 <style>
 .image-redimensionnee {
-      width: 100%;      /* Largeur relative */
-    height: 500px;   /* Hauteur fixe */
+      width: 100%;      
+    height: 500px;  
     object-fit: cover;
-    max-width: 7000px; /* Largeur maximum */
+    max-width: 7000px; 
 }
 </style>
 
