@@ -9,8 +9,14 @@ def regLog_details(request):
 def regLog_atelier(request):
     return render(request, 'regLog_atelier.html')
 
-def regLog_tester(request):
+def reglog_tester(request):
+    return render(request,'reglog_tester.html')
+
+def vehicles_form(request):
     return render(request, 'vehicles_form.html')
+
+def reglog_results(request):
+    return render(request,'reglog_results.html')
 
 
 
@@ -91,6 +97,84 @@ def prediction_or(request):
 
 def linear_results(request):
     return render(request, 'linear_results.html')
+
+def load_housing_model(model_name):
+    """Charge les modèles de classification de logements"""
+    try:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        model_path = os.path.join(current_dir, 'models', model_name)
+        return joblib.load(model_path)
+    except Exception as e:
+        print(f"Erreur chargement modèle {model_name}: {e}")
+        return None
+
+def reglog_tester(request):
+    """Page de test du modèle de régression logistique"""
+    return render(request, 'vehicles_form.html')
+
+def housing_prediction(request):
+    """Prédiction avec régression logistique pour les recommandations de logements"""
+    if request.method == 'POST':
+        try:
+            # Récupérer les données du formulaire
+            lat = float(request.POST.get('lat', 0))
+            person_capacity = float(request.POST.get('person_capacity', 0))
+            dist = float(request.POST.get('dist', 0))  # Note: 'dist' pas 'center_dist'
+            bedrooms = float(request.POST.get('bedrooms', 0))
+            metro_dist = float(request.POST.get('metro_dist', 0))
+            guest_satisfaction = float(request.POST.get('guest_satisfaction_overall', 0))
+            lng = float(request.POST.get('lng', 0))
+            attr_index = float(request.POST.get('attr_index', 0))
+            
+            # Charger le modèle et le scaler
+            model = load_housing_model('logistic_regression_model.pkl')
+            scaler = load_housing_model('logistic_scaler.pkl')
+            
+            if model is None or scaler is None:
+                return render(request, 'vehicles_form.html', {
+                    'error': "Modèle non disponible. Veuillez contacter l'administrateur."
+                })
+            
+            # Préparer les données et normaliser
+            input_data = [[lat, person_capacity, dist, bedrooms, metro_dist, 
+                         guest_satisfaction, lng, attr_index]]
+            input_scaled = scaler.transform(input_data)
+            
+            # Faire la prédiction
+            prediction = model.predict(input_scaled)
+            probabilities = model.predict_proba(input_scaled)
+            
+            predicted_class = prediction[0]
+            probability_recommended = probabilities[0][1] * 100
+            
+            # Préparer les données pour l'affichage
+            input_data_display = {
+                'lat': lat,
+                'person_capacity': person_capacity,
+                'dist': dist,
+                'bedrooms': bedrooms,
+                'metro_dist': metro_dist,
+                'guest_satisfaction_overall': guest_satisfaction,
+                'lng': lng,
+                'attr_index': attr_index
+            }
+            
+            context = {
+                'prediction': predicted_class,
+                'prediction_label': 'Recommandé' if predicted_class == 1 else 'Non recommandé',
+                'probability': f"{probability_recommended:.2f}%",
+                'initial_data': input_data_display,
+                'model_type': 'Régression Logistique'
+            }
+            
+            return render(request, 'reglog_results.html', context)
+            
+        except Exception as e:
+            return render(request, 'vehicles_form.html', {
+                'error': f"Erreur lors de la prédiction: {str(e)}"
+            })
+    
+    return render(request, 'vehicles_form.html')
 
 
 def decision_tree_atelier(request):
